@@ -8,6 +8,8 @@ namespace scenes {
     private _redcarNum: number;
     private _yellowcars: objects.Yellowcar[];
     private __yellowcarNum: number;
+    private _greencars: objects.Greencar[];
+    private _greencarnum: number;
     public engineSound: createjs.AbstractSoundInstance;
 
     // constructors
@@ -31,6 +33,13 @@ namespace scenes {
         //this._redcars[count] = new objects.Redcar();
       }
     }
+    private _buildGreencars(): void {
+      for (let count = 0; count < this._greencarnum; count++) {
+        this._greencars.push(new objects.Greencar());
+        //this._redcars[count] = new objects.Redcar();
+      }
+    }
+
 
     // public methods
     public Start(): void {
@@ -50,7 +59,10 @@ namespace scenes {
       this._yellowcars = new Array<objects.Yellowcar>();
       this.__yellowcarNum = 1;
       this._buildYellowcars();
-
+     
+      this._greencars = new Array<objects..Greencar>();
+      this._greencarnum = 1;
+      this._buildGreencars();
       this.Main();
     }
 
@@ -60,7 +72,6 @@ namespace scenes {
       this._coin.Update();
 
       managers.Collision.check(this._car, this._coin);
-
       this._redcars.forEach(redcar => {
         redcar.Update();
         managers.Collision.check(this._car, redcar);
@@ -70,6 +81,12 @@ namespace scenes {
       this._yellowcars.forEach(yellowcar => {
         yellowcar.Update();
         managers.Collision.check(this._car, yellowcar);
+      });
+
+      managers.Collision.check(this._car, this._coin);
+      this._greencars.forEach(greencar => {
+        greencar.Update();
+        managers.Collision.check(this._car, greencar);
       });
     }
 
@@ -98,6 +115,9 @@ namespace scenes {
       }
       for (const yellowcar of this._yellowcars) {
         this.addChild(yellowcar);
+      }
+      for (const greencar of this._greencars) {
+        this.addChild(greencar);
       }
 
       this.addChild(managers.Game.ScoreBoardManager.LivesLabel);

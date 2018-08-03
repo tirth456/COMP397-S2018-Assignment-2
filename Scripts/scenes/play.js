@@ -31,6 +31,12 @@ var scenes;
                 //this._redcars[count] = new objects.Redcar();
             }
         };
+        Play.prototype._buildGreencars = function () {
+            for (var count = 0; count < this._greencarnum; count++) {
+                this._greencars.push(new objects.Greencar());
+                //this._redcars[count] = new objects.Redcar();
+            }
+        };
         // public methods
         Play.prototype.Start = function () {
             this.engineSound = createjs.Sound.play("engine");
@@ -46,6 +52,9 @@ var scenes;
             this._yellowcars = new Array();
             this.__yellowcarNum = 1;
             this._buildYellowcars();
+            this._greencars = new Array();
+            this._greencarnum = 1;
+            this._buildGreencars();
             this.Main();
         };
         Play.prototype.Update = function () {
@@ -62,6 +71,11 @@ var scenes;
             this._yellowcars.forEach(function (yellowcar) {
                 yellowcar.Update();
                 managers.Collision.check(_this._car, yellowcar);
+            });
+            managers.Collision.check(this._car, this._coin);
+            this._greencars.forEach(function (greencar) {
+                greencar.Update();
+                managers.Collision.check(_this._car, greencar);
             });
         };
         Play.prototype.Reset = function () { };
@@ -85,6 +99,10 @@ var scenes;
             for (var _b = 0, _c = this._yellowcars; _b < _c.length; _b++) {
                 var yellowcar = _c[_b];
                 this.addChild(yellowcar);
+            }
+            for (var _d = 0, _e = this._greencars; _d < _e.length; _d++) {
+                var greencar = _e[_d];
+                this.addChild(greencar);
             }
             this.addChild(managers.Game.ScoreBoardManager.LivesLabel);
             this.addChild(managers.Game.ScoreBoardManager.ScoreLabel);

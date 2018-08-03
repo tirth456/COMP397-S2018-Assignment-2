@@ -17,6 +17,7 @@
     { id: "coin", src: "/Assets/images/coin01.png" },
     { id: "redcar", src: "/Assets/images/CarRed.png" },
     { id: "yellowcar", src: "/Assets/images/CarYeallow.png" },
+    { id: "greencar", src: "/Assets/images/CarGreen.png" },
     { id: "yay", src: "/Assets/audio/coin.wav" },
     { id: "thunder", src: "/Assets/audio/explosion.mp3" },
     { id: "engine", src: "/Assets/audio/engine.wav" }

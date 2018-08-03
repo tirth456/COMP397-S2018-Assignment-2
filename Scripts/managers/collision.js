@@ -41,6 +41,16 @@ var managers;
                                 managers.Game.CurrentState = config.Scene.END;
                             }
                             break;
+                        case "greencar":
+                            var thunderSound2 = createjs.Sound.play("thunder");
+                            thunderSound2.volume = 0.1;
+                            managers.Game.ScoreBoardManager.Lives -= 1;
+                            // check if lives falls below 1
+                            if (managers.Game.ScoreBoardManager.Lives <= 0) {
+                                // change scenes to the END scene
+                                managers.Game.CurrentState = config.Scene.END;
+                            }
+                            break;
                     }
                 }
             }

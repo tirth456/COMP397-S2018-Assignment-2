@@ -60,7 +60,7 @@ namespace scenes {
       this.__yellowcarNum = 1;
       this._buildYellowcars();
      
-      this._greencars = new Array<objects..Greencar>();
+      this._greencars = new Array<objects.Greencar>();
       this._greencarnum = 1;
       this._buildGreencars();
       this.Main();

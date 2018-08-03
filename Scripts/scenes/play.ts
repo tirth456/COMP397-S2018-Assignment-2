@@ -6,7 +6,8 @@ namespace scenes {
     private _coin: objects.Coin;
     private _redcars: objects.Redcar[];
     private _redcarNum: number;
-
+    private _yellowcars: objects.Yellowcar[];
+    private __yellowcarNum: number;
     public engineSound: createjs.AbstractSoundInstance;
 
     // constructors
@@ -24,6 +25,13 @@ namespace scenes {
       }
     }
 
+    private _buildYellowcars(): void {
+      for (let count = 0; count < this.__yellowcarNum; count++) {
+        this._yellowcars.push(new objects.Yellowcar());
+        //this._redcars[count] = new objects.Redcar();
+      }
+    }
+
     // public methods
     public Start(): void {
       this.engineSound = createjs.Sound.play("engine");
@@ -37,8 +45,11 @@ namespace scenes {
       // creates an empty array of type Redcar
       this._redcars = new Array<objects.Redcar>();
       this._redcarNum = 1;
-
       this._buildRedcars();
+
+      this._yellowcars = new Array<objects.Yellowcar>();
+      this.__yellowcarNum = 1;
+      this._buildYellowcars();
 
       this.Main();
     }
@@ -53,6 +64,12 @@ namespace scenes {
       this._redcars.forEach(redcar => {
         redcar.Update();
         managers.Collision.check(this._car, redcar);
+      });
+
+      managers.Collision.check(this._car, this._coin);
+      this._yellowcars.forEach(yellowcar => {
+        yellowcar.Update();
+        managers.Collision.check(this._car, yellowcar);
       });
     }
 
@@ -78,6 +95,9 @@ namespace scenes {
       // adding the redcar to the scene
       for (const redcar of this._redcars) {
         this.addChild(redcar);
+      }
+      for (const yellowcar of this._yellowcars) {
+        this.addChild(yellowcar);
       }
 
       this.addChild(managers.Game.ScoreBoardManager.LivesLabel);
